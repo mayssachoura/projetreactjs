@@ -22,9 +22,11 @@ stages:
           - script: |
               if [ "${{ parameters.SiteToBuild }}" == "site1" ]; then
                 echo "Building Site 1..."
+                displayName: site1
                 # Mettez ici les commandes pour construire le site web 1
               elif [ "${{ parameters.SiteToBuild }}" == "site2" ]; then
                 echo "Building Site 2..."
+                displayName: site2
                 # Mettez ici les commandes pour construire le site web 2
               else
                 echo "Invalid choice. Exiting..."
