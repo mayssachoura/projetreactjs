@@ -1,0 +1,46 @@
+# azure-pipelines.yml
+
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  - name: SITE_TO_DEPLOY
+    value: "site1"  # Définir le site par défaut (site1 ou site2)
+
+stages:
+  - stage: Build
+    displayName: Build Websites
+    jobs:
+      - job: BuildSite1
+        displayName: Build Site 1
+        steps:
+          - script: echo "Building Site 1..."
+            displayName: "Build Site 1"
+            # Mettez ici les commandes pour construire le site web 1
+
+      - job: BuildSite2
+        displayName: Build Site 2
+        steps:
+          - script: echo "Building Site 2..."
+            displayName: "Build Site 2"
+            # Mettez ici les commandes pour construire le site web 2
+
+  - stage: Deploy
+    displayName: Deploy Website
+    jobs:
+      - job: DeploySite
+        displayName: Deploy Site
+        steps:
+          - script: |
+              if [ "$(SITE_TO_DEPLOY)" == "site1" ]; then
+                echo "Deploying Site 1..."
+                # Mettez ici les commandes pour déployer le site web 1
+              elif [ "$(SITE_TO_DEPLOY)" == "site2" ]; then
+                echo "Deploying Site 2..."
+                # Mettez ici les commandes pour déployer le site web 2
+              else
+                echo "Site not recognized."
+              fi
+            displayName: "Deploy Site"
