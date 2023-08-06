@@ -1,5 +1,14 @@
 # azure-pipelines.yml
 
+parameters:
+  - name: SiteToBuild
+    displayName: 'Choose the site to build'
+    type: string
+    default: 'site1'
+    values:
+      - 'site1'
+      - 'site2'
+
 trigger:
   branches:
     include:
@@ -9,22 +18,18 @@ stages:
   - stage: Build
     displayName: Build Websites
     jobs:
-      - job: ChooseSiteToBuild
-        displayName: Choose Site to Build
+      - job: BuildSite
+        displayName: Build Chosen Site
         steps:
           - script: |
-              echo "Which site do you want to build?"
-              echo "1. Site 1"
-              echo "2. Site 2"
-              read -p "Enter the site number: " SITE_NUMBER
-              if [ "$SITE_NUMBER" == "1" ]; then
+              if [ "$(SiteToBuild)" == "site1" ]; then
                 echo "Building Site 1..."
                 # Mettez ici les commandes pour construire le site web 1
-              elif [ "$SITE_NUMBER" == "2" ]; then
+              elif [ "$(SiteToBuild)" == "site2" ]; then
                 echo "Building Site 2..."
                 # Mettez ici les commandes pour construire le site web 2
               else
                 echo "Invalid choice. Exiting..."
                 exit 1
               fi
-            displayName: "Choose Site and Build"
+            displayName: "Build Chosen Site"
