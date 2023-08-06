@@ -1,5 +1,3 @@
-# azure-pipelines.yml
-
 parameters:
   - name: SiteToBuild
     displayName: 'Choose the site to build'
@@ -22,10 +20,10 @@ stages:
         displayName: Build Chosen Site
         steps:
           - script: |
-              if [ "$(SiteToBuild)" == "site1" ]; then
+              if [ "${{ parameters.SiteToBuild }}" == "site1" ]; then
                 echo "Building Site 1..."
                 # Mettez ici les commandes pour construire le site web 1
-              elif [ "$(SiteToBuild)" == "site2" ]; then
+              elif [ "${{ parameters.SiteToBuild }}" == "site2" ]; then
                 echo "Building Site 2..."
                 # Mettez ici les commandes pour construire le site web 2
               else
