@@ -1,3 +1,5 @@
+# azure-pipelines.yml
+
 parameters:
   - name: SiteToBuild
     displayName: 'Choose the site to build'
@@ -13,21 +15,26 @@ trigger:
       - main
 
 stages:
-  - stage: Build
-    displayName: Build Websites
+  - stage: BuildSite1
+    displayName: Build Site 1
+    condition: eq('${{ parameters.SiteToBuild }}', 'site1')
     jobs:
-      - job: BuildSite
-        displayName: Build Chosen Site
+      - job: BuildSite1Job
+        displayName: Build Site 1
         steps:
           - script: |
-              if [ "${{ parameters.SiteToBuild }}" == "site1" ]; then
-                echo "Building Site 1..."
-                # Mettez ici les commandes pour construire le site web 1
-              elif [ "${{ parameters.SiteToBuild }}" == "site2" ]; then
-                echo "Building Site 2..."
-                # Mettez ici les commandes pour construire le site web 2
-              else
-                echo "Invalid choice. Exiting..."
-                exit 1
-              fi
-            displayName: "Build Chosen Site"
+              echo "Building Site 1..."
+              # Mettez ici les commandes pour construire le site web 1
+            displayName: "Build Site 1"
+
+  - stage: BuildSite2
+    displayName: Build Site 2
+    condition: eq('${{ parameters.SiteToBuild }}', 'site2')
+    jobs:
+      - job: BuildSite2Job
+        displayName: Build Site 2
+        steps:
+          - script: |
+              echo "Building Site 2..."
+              # Mettez ici les commandes pour construire le site web 2
+            displayName: "Build Site 2"
